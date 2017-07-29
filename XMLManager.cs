@@ -17,6 +17,24 @@ public class XMLManager : MonoBehaviour {
 	}
 
 	public SongDatabase songDB;
+
+	//save song list
+	public void saveSongs(){
+		//open xml file
+		XmlSerializer serializer = new XmlSerializer (typeof(SongDatabase));
+		FileStream stream = new FileStream (Application.dataPath + "/song_list.xml", FileMode.Create);
+		serializer.Serialize (stream, songDB);
+		stream.Close ();
+	}
+
+	//load song list
+	public void loadSongs(){
+		//open xml file
+		XmlSerializer serializer = new XmlSerializer (typeof(SongDatabase));
+		FileStream stream = new FileStream (Application.dataPath + "/song_list.xml", FileMode.Open);
+		songDB = serializer.Deserialize(stream) as SongDatabase;
+		stream.Close ();
+	}
 }
 
 [System.Serializable]
