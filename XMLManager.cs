@@ -7,7 +7,7 @@ using System.IO; //file management
 using UnityEngine;
 
 public class XMLManager : MonoBehaviour {
-
+//apa  kek
 	public static XMLManager manager;
 
 	// Use this for initialization
