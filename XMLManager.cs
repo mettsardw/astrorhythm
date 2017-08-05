@@ -18,6 +18,7 @@ public class XMLManager : MonoBehaviour {
 	}
 
 	public SongDatabase songDB;
+	public GameDatabase gameDB;
 
 	//save song list
 	public void saveSongs(){
@@ -34,6 +35,23 @@ public class XMLManager : MonoBehaviour {
 		XmlSerializer serializer = new XmlSerializer (typeof(SongDatabase));
 		FileStream stream = new FileStream (Application.dataPath + "/Files/song_list.xml", FileMode.Open);
 		songDB = serializer.Deserialize(stream) as SongDatabase;
+		stream.Close ();
+	}
+	
+	//save game
+	public void saveGame(){
+		XmlSerializer serializer = new XmlSerializer (typeof(GameDatabase));
+		FileStream stream = new FileStream (Application.dataPath + "/Files/gamedata.xml", FileMode.Create);
+		serializer.Serialize (stream, gameDB);
+		stream.Close ();
+	}
+	
+	//load game
+	public void loadSongs(){
+		//open xml file
+		XmlSerializer serializer = new XmlSerializer (typeof(GameDatabase));
+		FileStream stream = new FileStream (Application.dataPath + "/Files/gamedata.xml", FileMode.Open);
+		songDB = serializer.Deserialize(stream) as GameDatabase;
 		stream.Close ();
 	}
 }
@@ -58,4 +76,10 @@ public class SongEntry{
 [System.Serializable]
 public class SongDatabase{
 	public List<SongEntry> songs = new List<SongEntry>();
+}
+
+[System.Serializable]
+public class GameDatabase{
+	public int totalStars;
+	public int currentLevel;
 }
